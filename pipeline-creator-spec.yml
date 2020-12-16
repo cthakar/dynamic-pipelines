@@ -29,8 +29,8 @@ spec:
       title: Setting up a new pipeline programatically
       image: codefresh/cli
       commands:
-        - echo Creating a pipeline from $CF_BRANCH/pipeline-spec.yml
-        - codefresh create pipeline -f $CF_BRANCH/pipeline-spec.yml
+        - echo Creating a pipeline from $projects/services/CF_BRANCH/pipeline-spec.yml
+        - codefresh create pipeline -f projects/services/$CF_BRANCH/pipeline-spec.yml
   stages: []
 
 
