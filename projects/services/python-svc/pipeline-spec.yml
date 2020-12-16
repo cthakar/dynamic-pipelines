@@ -1,0 +1,38 @@
+version: '1.0'
+kind: pipeline
+metadata:
+  name: dynamic-pipelines/python-svc-pipeline
+  description: "Docker creation for python app"
+  deprecate: {}
+  project: dynamic-pipelines
+spec:
+  triggers:
+    - type: git
+      repo: cthakar/dynamic-pipelines
+      events:
+        - push
+      branchRegex: /.*/gi
+      modifiedFilesGlob: 'projects/services/**'
+      provider: github
+      name: my-trigger
+      context: github
+  contexts: []
+  variables:
+    - key: PORT
+      value: '5000'
+  steps:
+    main_clone:
+      title: 'Cloning main repository...'
+      type: git-clone
+      repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+      revision: '${{CF_REVISION}}'
+      git: github    
+    build_my_image:
+      title: Building Docker Image
+      type: build
+      image_name: my-monorepo-python-app
+      working_directory: ./projects/services/python-svc
+      tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+      dockerfile: Dockerfile
+  stages: []
+
