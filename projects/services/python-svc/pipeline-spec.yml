@@ -33,7 +33,7 @@ spec:
       image_name: cthakar/codefresh-demo
       registry: cthakar
       working_directory: ./projects/services/python-svc
-      tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
+      tag: 'cthakar/codefresh-demo/${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
       dockerfile: Dockerfile
   stages: []
 
