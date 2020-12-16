@@ -1,0 +1,36 @@
+version: '1.0'
+kind: pipeline
+metadata:
+  name: dynamic-pipelines/pipeline-creator
+  description: "Pipeline creator for pipeline-spec.yml files"
+  deprecate: {}
+  project: dynamic-pipelines
+spec:
+  triggers:
+    - type: git
+      repo: cthakar/dynamic-pipelines
+      events:
+        - push
+      branchRegex: /.*/gi
+      modifiedFilesGlob: 'projects/services/**'
+      provider: github
+      name: my-trigger
+      context: github
+  contexts: []
+  variables: []
+  steps:
+    main_clone:
+      title: 'Cloning main repository...'
+      type: git-clone
+      repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+      revision: '${{CF_REVISION}}'
+      git: github-1    
+    pipelineCreator:
+      title: Setting up a new pipeline programatically
+      image: codefresh/cli
+      commands:
+        - echo Creating a pipeline from $CF_BRANCH/pipeline-spec.yml
+        - codefresh create pipeline -f $CF_BRANCH/pipeline-spec.yml
+  stages: []
+
+
