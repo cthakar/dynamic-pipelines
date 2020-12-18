@@ -31,11 +31,13 @@ spec:
       commands:
         - echo Creating a pipeline
         - ls -altr
+        - ls -altr /codefresh/volume/dynamic-pipelines/projects/services/python-svc/
         - git show --name-only --oneline ${{CF_SHORT_REVISION}} | grep -v "changes"
         - pwd
         - MODIFIED_FILES=$(git show --name-only --oneline ${{CF_SHORT_REVISION}} | grep -v "changes")
         - echo "${MODIFIED_FILES}"
-        - codefresh create pipeline -f "${MODIFIED_FILES}"
+        - cf_export MODIFIED_FILES
+        - codefresh create pipeline -f ./$MODIFIED_FILES
       # - ls -altr
       # - git show --name-only --oneline HEAD
       # - codefresh create pipeline -f projects/services/$CF_BRANCH/pipeline-spec.yml
