@@ -29,11 +29,11 @@ spec:
       title: Setting up a new pipeline programatically
       image: codefresh/cli
       commands:
-        - echo Creating a pipeline from projects/services/**/pipeline-spec.yml
-        - ls -altr
-      # - pwd
-      # - git status  
-        - git show --name-only --oneline HEAD
+        - echo Creating a pipeline
+        - cf_export MODIFIED_FILES=$(git show --name-only --oneline ${{CF_SHORT_REVISION}})
+        - echo $MODIFIED_FILES
+      # - ls -altr
+      # - git show --name-only --oneline HEAD
       # - codefresh create pipeline -f projects/services/$CF_BRANCH/pipeline-spec.yml
   stages: []
 
