@@ -32,9 +32,9 @@ spec:
         - echo Creating a pipeline
         - ls -altr
         - git show --name-only --oneline ${{CF_SHORT_REVISION}} | grep -v "changes"
-      # - MODIFIED_FILES=$(git show --name-only --oneline ${{CF_SHORT_REVISION}} | grep -v "changes")
-      # - echo "${MODIFIED_FILES}"
-      # - codefresh create pipeline -f "${MODIFIED_FILES}"
+        - MODIFIED_FILES=$(git show --name-only --oneline ${{CF_SHORT_REVISION}} | grep -v "changes")
+        - echo "${MODIFIED_FILES}"
+        - codefresh create pipeline -f "${MODIFIED_FILES}"
       # - ls -altr
       # - git show --name-only --oneline HEAD
       # - codefresh create pipeline -f projects/services/$CF_BRANCH/pipeline-spec.yml
