@@ -31,8 +31,8 @@ spec:
       commands:
         - echo Creating a pipeline from projects/services/**/pipeline-spec.yml
         - ls -altr
-        - pwd
-        - git status  
+      # - pwd
+      # - git status  
         - git show --name-only --oneline HEAD
       # - codefresh create pipeline -f projects/services/$CF_BRANCH/pipeline-spec.yml
   stages: []
