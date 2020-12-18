@@ -30,8 +30,9 @@ spec:
       image: codefresh/cli
       commands:
         - echo Creating a pipeline
+        - ls -altr
         - cf_export MODIFIED_FILES=$(git show --name-only --oneline ${{CF_SHORT_REVISION}})
-        - echo $MODIFIED_FILES
+        - echo ${{MODIFIED_FILES}}
       # - ls -altr
       # - git show --name-only --oneline HEAD
       # - codefresh create pipeline -f projects/services/$CF_BRANCH/pipeline-spec.yml
