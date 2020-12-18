@@ -33,6 +33,7 @@ spec:
         - ls -altr
         - pwd
         - git status  
+        - git show --name-only --oneline HEAD
       # - codefresh create pipeline -f projects/services/$CF_BRANCH/pipeline-spec.yml
   stages: []
 
