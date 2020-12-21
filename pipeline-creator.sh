@@ -2,15 +2,17 @@
 
 echo "--------------------Creating codefresh pipelines-----------------------"
 
+
+sh --version
 #declare -a existing
 #declare -a new
 #declare -a final
 
 
 
-set -A existing=(`codefresh get pipelines | awk '{print $1}' | grep -v "NAME" | grep "dynamic-pipelines" | cut -d '/' -f 2`)
-set -A new=(`ls ./projects/services/`)
-set -A final=$(echo ${new[@]} ${existing[@]} | sed 's/ /\n/g' | sort | uniq -d | xargs echo ${new[@]} | sed 's/ /\n/g' | sort | uniq -u)
+existing=(`codefresh get pipelines | awk '{print $1}' | grep -v "NAME" | grep "dynamic-pipelines" | cut -d '/' -f 2`)
+new=(`ls ./projects/services/`)
+final=`echo ${new[@]} ${existing[@]} | sed 's/ /\n/g' | sort | uniq -d | xargs echo ${new[@]} | sed 's/ /\n/g' | sort | uniq -u`
 
 
 for svc in $final
