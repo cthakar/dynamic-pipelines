@@ -2,9 +2,9 @@
 
 echo "--------------------Creating codefresh pipelines-----------------------"
 
-declare -a existing
-declare -a new
-declare -a final
+#declare -a existing
+#declare -a new
+#declare -a final
 
 existing=(`codefresh get pipelines | awk '{print $1}' | grep -v "NAME" | grep "dynamic-pipelines" | cut -d '/' -f 2`)
 new=(`ls ./projects/services/`)
