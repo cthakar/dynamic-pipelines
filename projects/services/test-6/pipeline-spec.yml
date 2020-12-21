@@ -1,8 +1,8 @@
 version: '1.0'
 kind: pipeline
 metadata:
-  name: dynamic-pipelines/pipeline-creator
-  description: "Pipeline creator for pipeline-spec.yml files"
+  name: dynamic-pipelines/test-6
+  description: "Docker creation for python app"
   deprecate: {}
   project: dynamic-pipelines
 spec:
@@ -17,7 +17,9 @@ spec:
       name: my-trigger
       context: github
   contexts: []
-  variables: []
+  variables:
+    - key: PORT
+      value: '5000'
   steps:
     main_clone:
       title: 'Cloning main repository...'
@@ -25,13 +27,16 @@ spec:
       repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
       revision: '${{CF_REVISION}}'
       git: github    
-    pipelineCreator:
-      title: Setting up a new pipeline programatically
-      image: codefresh/cli
-      commands:
-        - echo Creating a pipeline
-        - ls -altr
-        - sh pipeline-creator.sh
+    build_my_image:
+      title: Building Docker Image
+      type: build
+      image_name: cthakar/codefresh-demo
+      registry: cthakar
+      working_directory: ./projects/services/python-svc
+      tag: 'cthakar/codefresh-demo:${{CF_SHORT_REVISION}}'
+      dockerfile: Dockerfile
+      disable_push: true
   stages: []
+
 
 
